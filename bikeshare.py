@@ -8,37 +8,37 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
+    Keeps prompting until valid input is received for each field.
 
     Returns:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
+        (str) city - name of the city to analyze, one of: chicago, new york city, washington
+        (str) month - name of the month to filter by (january through june), or "all"
+        (str) day - name of the day of week to filter by (monday through sunday), or "all"
     """
     print('Hello! Let\'s explore some US bikeshare data!')
 
     # get user input for city (chicago, new york city, washington)
-    # keep asking until they give a valid answer
-    city = ''
-    while city not in CITY_DATA:
+    while True:
         city = input('Please enter a city - chicago, new york city, or washington: ').lower()
-        if city not in CITY_DATA:
-            print('That wasn\'t a valid city, try again.')
+        if city in CITY_DATA:
+            break
+        print('That wasn\'t a valid city, try again.')
 
     # get user input for month (all, january, february, ... , june)
     valid_months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
-    month = ''
-    while month not in valid_months:
+    while True:
         month = input('Enter a month (january through june) or "all": ').lower()
-        if month not in valid_months:
-            print('Invalid month, please try again.')
+        if month in valid_months:
+            break
+        print('Invalid month, please try again.')
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     valid_days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    day = ''
-    while day not in valid_days:
+    while True:
         day = input('Enter a day of the week or "all": ').lower()
-        if day not in valid_days:
-            print('That day wasn\'t recognized, please try again.')
+        if day in valid_days:
+            break
+        print('That day wasn\'t recognized, please try again.')
 
     print('-'*40)
     return city, month, day
@@ -47,6 +47,8 @@ def get_filters():
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
+    Reads the CSV file for the given city, converts the Start Time column to datetime,
+    and adds helper columns for month, day of week, and hour before applying filters.
 
     Args:
         (str) city - name of the city to analyze
@@ -81,8 +83,13 @@ def load_data(city, month, day):
 
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """
+    Displays statistics on the most frequent times of travel.
+    Shows the most common month, day of week, and start hour based on the filtered data.
 
+    Args:
+        df - Pandas DataFrame of filtered bikeshare data
+    """
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
@@ -105,8 +112,14 @@ def time_stats(df):
 
 
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
+    """
+    Displays statistics on the most popular stations and trip.
+    Shows the most commonly used start station, end station, and
+    the most frequent start-to-end station combination.
 
+    Args:
+        df - Pandas DataFrame of filtered bikeshare data
+    """
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
@@ -129,8 +142,13 @@ def station_stats(df):
 
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
+    """
+    Displays statistics on the total and average trip duration.
+    Trip Duration column is in seconds; results are converted to hours/minutes.
 
+    Args:
+        df - Pandas DataFrame of filtered bikeshare data
+    """
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
@@ -153,8 +171,14 @@ def trip_duration_stats(df):
 
 
 def user_stats(df):
-    """Displays statistics on bikeshare users."""
+    """
+    Displays statistics on bikeshare users.
+    Shows counts by user type and gender, plus birth year stats.
+    Gender and birth year are not available for Washington.
 
+    Args:
+        df - Pandas DataFrame of filtered bikeshare data
+    """
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
