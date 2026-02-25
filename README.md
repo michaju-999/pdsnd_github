@@ -1,5 +1,4 @@
 # Bikeshare Data Explorer
-
 Created 24 Feb 2026
 
 ## Overview
