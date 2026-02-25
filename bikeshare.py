@@ -153,11 +153,10 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-    # duration is in seconds so convert to hours and minutes
+    # duration is in seconds - convert directly to hours and leftover minutes
     total_time = df['Trip Duration'].sum()
-    total_mins = total_time / 60
-    total_hours = int(total_mins // 60)
-    leftover_mins = int(total_mins % 60)
+    total_hours = int(total_time // 3600)
+    leftover_mins = int((total_time % 3600) // 60)
     print('Total Travel Time: {} hours, {} minutes'.format(total_hours, leftover_mins))
 
     # display mean travel time
