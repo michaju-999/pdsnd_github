@@ -18,28 +18,27 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
 
     # get user input for city (chicago, new york city, washington)
-    # keep asking until they give a valid answer
-    city = ''
-    while city not in CITY_DATA:
+    while True:
         city = input('Please enter a city - chicago, new york city, or washington: ').lower()
-        if city not in CITY_DATA:
-            print('That wasn\'t a valid city, try again.')
+        if city in CITY_DATA:
+            break
+        print('That wasn\'t a valid city, try again.')
 
     # get user input for month (all, january, february, ... , june)
     valid_months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
-    month = ''
-    while month not in valid_months:
+    while True:
         month = input('Enter a month (january through june) or "all": ').lower()
-        if month not in valid_months:
-            print('Invalid month, please try again.')
+        if month in valid_months:
+            break
+        print('Invalid month, please try again.')
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     valid_days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    day = ''
-    while day not in valid_days:
+    while True:
         day = input('Enter a day of the week or "all": ').lower()
-        if day not in valid_days:
-            print('That day wasn\'t recognized, please try again.')
+        if day in valid_days:
+            break
+        print('That day wasn\'t recognized, please try again.')
 
     print('-'*40)
     return city, month, day
@@ -125,18 +124,18 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-    common_start = df['Start Station'].mode()[0]
-    print('Most Common Start Station:', common_start)
+    top_start_station = df['Start Station'].mode()[0]
+    print('Most Common Start Station:', top_start_station)
 
     # display most commonly used end station
-    common_end = df['End Station'].mode()[0]
-    print('Most Common End Station:', common_end)
+    top_end_station = df['End Station'].mode()[0]
+    print('Most Common End Station:', top_end_station)
 
     # display most frequent combination of start station and end station trip
     # combine the two station columns into one string to find the most common pair
-    combo = df['Start Station'] + ' to ' + df['End Station']
-    common_trip = combo.mode()[0]
-    print('Most Common Trip:', common_trip)
+    start_end_combo = df['Start Station'] + ' to ' + df['End Station']
+    most_common_trip = start_end_combo.mode()[0]
+    print('Most Common Trip:', most_common_trip)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -154,11 +153,10 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-    # duration is in seconds so convert to hours and minutes
+    # duration is in seconds - convert directly to hours and leftover minutes
     total_time = df['Trip Duration'].sum()
-    total_mins = total_time / 60
-    total_hours = int(total_mins // 60)
-    leftover_mins = int(total_mins % 60)
+    total_hours = int(total_time // 3600)
+    leftover_mins = int((total_time % 3600) // 60)
     print('Total Travel Time: {} hours, {} minutes'.format(total_hours, leftover_mins))
 
     # display mean travel time
