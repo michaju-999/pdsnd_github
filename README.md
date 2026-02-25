@@ -5,16 +5,14 @@ This project uses Python to explore bikeshare trip data from three US cities. It
 descriptive statistics and lets users filter results interactively from the terminal.
 
 ## Cities Covered
-- Chicago
 - New York City
-- Washington
 
 ## Software Requirements
 - Python 3
 - pandas library
 
 ## How to Run
-1. Place the CSV data files (chicago.csv, new_york_city.csv, washington.csv) in the same folder as bikeshare.py
+1. Place the CSV data file (new_york_city.csv) in the same folder as bikeshare.py
 2. Run the script from the terminal: `python bikeshare.py`
 3. Follow the prompts to select a city, month, and day
 4. Statistics will be displayed in the terminal
