@@ -1,15 +1,25 @@
-### Date created
-24 Feb 2026
+# Bikeshare Data Explorer
 
-### Project Title
-BikeShare Project
+## Overview
+This project uses Python to explore bikeshare trip data from three US cities. It calculates
+descriptive statistics and lets users filter results interactively from the terminal.
 
-### Description
-This project analyzes bikeshare data.
+## Cities Covered
+- Chicago
+- New York City
+- Washington
 
-### Files used
-The source file is mew_york_city.csv
+## Software Requirements
+- Python 3
+- pandas library
 
-### Credits
-Used a few best practice sources
+## How to Run
+1. Place the CSV data files (chicago.csv, new_york_city.csv, washington.csv) in the same folder as bikeshare.py
+2. Run the script from the terminal: `python bikeshare.py`
+3. Follow the prompts to select a city, month, and day
+4. Statistics will be displayed in the terminal
 
+## Files
+- `bikeshare.py` - main script
+- `readme.txt` - references and notes
+- `.gitignore` - excludes data CSV files from the repository
