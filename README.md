@@ -1,5 +1,7 @@
 # Bikeshare Data Explorer
 
+Created 24 Feb 2026
+
 ## Overview
 This project uses Python to explore bikeshare trip data from three US cities. It calculates
 descriptive statistics and lets users filter results interactively from the terminal.
